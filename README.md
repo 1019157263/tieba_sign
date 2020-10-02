@@ -1,4 +1,4 @@
-# 贴吧云签到云回复
+# 贴吧云签到云回复(修改为sqlite数据库,方便快捷安装)
 
 # [Docker版](https://github.com/ghosx/TiebaProject/tree/docker)
 
