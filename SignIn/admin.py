@@ -3,29 +3,30 @@ from .models import User, Sign, SignLog, SignTotal
 
 
 class UserAdmin(admin.ModelAdmin):
+    # list_display = ("username",)
     list_display = ('username', 'email', 'email_notice', 'token',
                     '共关注', '已签到', '未签到', '是否有效用户', 'created_time', 'update_time')
-    list_editable = ('email', 'email_notice')
-    search_fields = ('username', 'email')
-    list_display_links = ('username', 'email')
-    list_per_page = 30
-    date_hierarchy = 'created_time'
-    actions = ('make_new_user', )
-
-    def make_new_user(self, request, queryset):  # 定义动作
-        rows_updated = queryset.update(flag=0)
-        if rows_updated == 1:
-            message_bit = "one user changed"
-        else:
-            message_bit = "%s users changed" % rows_updated
-        self.message_user(request, "%s successfully ." % message_bit)
-    make_new_user.short_description = "修改为新提交用户"  # 重写动作显示名称
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(username=request.user.username)
+    # list_editable = ('email', 'email_notice')
+    # search_fields = ('username', 'email')
+    # list_display_links = ('username', 'email')
+    # list_per_page = 30
+    # date_hierarchy = 'created_time'
+    # actions = ('make_new_user', )
+    #
+    # def make_new_user(self, request, queryset):  # 定义动作
+    #     rows_updated = queryset.update(flag=0)
+    #     if rows_updated == 1:
+    #         message_bit = "one user changed"
+    #     else:
+    #         message_bit = "%s users changed" % rows_updated
+    #     self.message_user(request, "%s successfully ." % message_bit)
+    # make_new_user.short_description = "修改为新提交用户"  # 重写动作显示名称
+    #
+    # def get_queryset(self, request):
+    #     qs = super().get_queryset(request)
+    #     if request.user.is_superuser:
+    #         return qs
+    #     return qs.filter(username=request.user.username)
 
 
 class SignAdmin(admin.ModelAdmin):
@@ -67,7 +68,7 @@ class SignTotalAdmin(admin.ModelAdmin):
     list_display = ('id', 'number')
 
 
-admin.site.register(User)
+admin.site.register(User,UserAdmin)
 admin.site.register(Sign, SignAdmin)
 admin.site.register(SignLog, SignLogAdmin)
 admin.site.register(SignTotal, SignTotalAdmin)
